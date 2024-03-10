@@ -1,0 +1,66 @@
+ЭКЗАМЕНАЦИОННЫЙ БИЛЕТ № 4
+№1: Структуры среды разработки. Факторы при выборе.
+Структуры среды разработки включают инструменты и платформы, такие как интегрированные среды разработки (IDE), системы контроля версий, базы данных и серверы приложений. При выборе учитываются факторы, такие как размер и разнообразие проекта, технологии, стратегия организации и динамизм внешней среды.
+№2: Тестирование: понятие, критерии. Требования к тестированию. Процесс проведения отладки.
+Тестирование - это процесс проверки программного обеспечения на соответствие требованиям и поиск ошибок. Критерии включают полноту покрытия кода, работу в граничных условиях и соответствие функциональным требованиям. Требования к тестированию включают четкость, полноту и выполнимость. Процесс отладки включает обнаружение, локализацию и исправление ошибок, выявленных во время тестирования
+
+Практическое задание: Cоздать приложение форма авторизации через логин и пароль, на языке C# с помощью Windows Forms.
+
+    public partial class Vhod : Form
+    {
+        public int v;
+        public Vhod()
+        {
+            InitializeComponent();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (textBox1.Text == "" || textBox2.Text == "")
+            {
+                MessageBox.Show("Заполните поля", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                Auth_us();
+            }
+        }
+        public int che = 0;
+        public void Auth_us()
+        {
+            StreamReader objReader = new StreamReader("auth_us.txt");
+            string sLine = "";
+            ArrayList arrText = new ArrayList();
+
+            while (sLine != null)
+            {
+                sLine = objReader.ReadLine();
+                if (sLine != null)
+                {
+                    arrText.Add(sLine);
+                    char[] sCh = { ':' };
+                    string[] cash = sLine.Split(sCh);
+                    if (textBox1.Text == cash[0] && textBox2.Text == cash[1].Replace(" ", ""))
+                    {
+                        che = 1;
+                        goto Vxod;
+
+                    }
+                }
+            }
+
+        Vxod:
+            objReader.Close();
+            if (che == 1)
+            {
+                DialogResult result = MessageBox.Show("Добро пожаловать", "Здравствуйте", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Hide();
+                Form1 h1 = new Form1();
+                h1.Show();
+            }
+            else
+            {
+                DialogResult result = MessageBox.Show("Неверный пароль или логин.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+    }

@@ -1,0 +1,50 @@
+ЭКЗАМЕНАЦИОННЫЙ БИЛЕТ № 22
+№1: Формирование репозитория проекта информационной системы.
+№2: Спиральная модель жизненного цикла. Особенности и проблемы разработки по спиральной модели.
+Практическое задание:
+namespace ekz22 {
+    public class Program {
+        public static void Main() {
+            try {
+                Console.WriteLine("Введите четверть: ");
+                int n = Convert.ToInt32 (Console.ReadLine());
+                Console.WriteLine(Proverka(n));
+            }
+            catch {
+                Console.WriteLine("Неверные значения");
+            }
+            Console.ReadKey();
+        }
+        public static string Proverka(int n) {
+            string result = "";
+            switch (n) {
+                case 1:
+                    result = "Знак косинуса - плюс";
+                    break;
+                case 2:
+                    result = "Знак косинуса - минус";
+                    break;
+                case 3:
+                    result = "Знак косинуса - минус";
+                    break;
+                case 4:
+                    result = "Знак косинуса - плюс";
+                    break;
+            }
+            return result;
+        }
+    }
+}
+Тест:
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+namespace MStest {
+    [TestClass]
+    public class UnitTest1 {
+        [TestMethod]
+        public void TestMethod1() {
+            string result = ekz22.Program.Proverka(1);
+            string expected = "Знак косинуса - плюс";
+            Assert.AreEqual(expected, result);
+        }
+    }
+}

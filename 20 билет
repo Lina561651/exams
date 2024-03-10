@@ -1,0 +1,52 @@
+ЭКЗАМЕНАЦИОННЫЙ БИЛЕТ № 20
+№1: Принципы создания GUI включают:
+Ясность: Интерфейс должен быть интуитивно понятным и узнаваемым.
+Консистентность: Элементы интерфейса должны быть последовательными в использовании и дизайне.
+Обратная связь: Пользователь должен получать немедленную обратную связь на свои действия.
+Эстетика: Дизайн должен быть приятным и не перегруженным.
+№2: Нефункциональное тестирование оценивает аспекты ПО, не связанные с функциональностью, такие как:
+Производительность: Как быстро система реагирует на запросы.
+Надежность: Способность системы функционировать без сбоев.
+Удобство использования: Насколько легко пользователю взаимодействовать с системой.
+Безопасность: Защита от несанкционированного доступа и утечек данных. Примеры включают тестирование нагрузки, стресс-тестирование и тестирование юзабилити
+.Практическое задание: 
+namespace Obmen2
+{
+    public partial class Form1 : Form
+    {
+        private decimal Kurs = 75.0m;
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            decimal amount = decimal.Parse(textBox1.Text);
+            if (radioButton1.Checked)
+            {
+                label1.Text = $"Результат: {ConvertUsdToRub(amount)} RUB";
+            }
+            else if (radioButton2.Checked)
+            {
+                label1.Text = $"Результат: {ConvertRubToUsd(amount)} USD";
+            }
+        }
+
+        private decimal ConvertUsdToRub(decimal usdAmount)
+        {
+            return usdAmount * Kurs;
+        }
+
+        private decimal ConvertRubToUsd(decimal rubAmount)
+        {
+            return rubAmount / Kurs;
+        }
+
+    }
+}

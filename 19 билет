@@ -1,0 +1,41 @@
+ЭКЗАМЕНАЦИОННЫЙ БИЛЕТ № 19
+№1: Система контроля версий позволяет отслеживать изменения в файлах, хранить версии и возвращаться к любому сохранённому состоянию. Совместимость зависит от операционной системы и окружения разработки. Установка и настройка обычно включают настройку сервера, клиентов и параметров доступа
+№2: Стадии разработки программного обеспечения включают:
+Анализ требований: определение целей и задач продукта.
+Проектирование: создание архитектуры и выбор инструментов.
+Кодирование: написание исходного кода программы.
+Тестирование: проверка работоспособности и соответствия требованиям.
+Внедрение: развертывание программы в эксплуатацию.
+Поддержка и обслуживание: исправление ошибок и обновление продукта
+Практическое задание: 
+using System;
+using System.ComponentModel;
+using System.Drawing;
+using System.Windows.Forms;
+namespace ekz19 {
+    public partial class Form1 : Form {
+        public Form1() {
+            InitializeComponent();
+        }
+        private void pictureBox1_LoadCompleted(object sender, AsyncCompletedEventArgs e) {
+            Graphics g = this.CreateGraphics();
+        }
+        private void button1_Click(object sender, EventArgs e) {
+            Graphics gr;
+            gr = pictureBox1.CreateGraphics();
+            Pen pen = new Pen(Color.Black, 4.5f);
+            Rectangle rect = new Rectangle(40, 90, 90, 200);
+            Rectangle rect1 = new Rectangle(160, 80, 90, 200);
+            Rectangle rect2 = new Rectangle(280, 70, 90, 200);
+            gr.DrawRectangle(pen, rect);
+            gr.DrawRectangle(pen, rect1);
+            gr.DrawRectangle(pen, rect2);
+            SolidBrush br = new SolidBrush(Color.LightGoldenrodYellow);
+            gr.FillRectangle(br, rect);
+            gr.FillRectangle(br, rect1);
+            gr.FillRectangle(br, rect2);
+            pen.Dispose();
+        }
+     }
+}
+ 

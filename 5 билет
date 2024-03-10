@@ -1,0 +1,23 @@
+ЭКЗАМЕНАЦИОННЫЙ БИЛЕТ № 5
+№1: Интеграция модуля в информационную систему - это процесс объединения отдельных программных компонентов в единую систему для обеспечения совместной работы и обмена данными.
+№2: Каскадная модель жизненного цикла ПО включает последовательные этапы: анализ требований, проектирование, реализация (кодирование), тестирование, интеграция и поддержка. Особенностью является строгая последовательность перехода от одного этапа к другому без возможности возвращения к предыдущим.
+Практическое задание: 
+public class ArrayProcessor
+{
+    public static int SumExceptMax(int[] array)
+    {
+        int max = array.Max();
+        return array.Where(item => item != max).Sum();
+    }
+}
+public class ArrayProcessorTests
+{
+    [Fact]
+    public void SumExceptMax_Test()
+    {
+        int[] array = { 1, 2, 3, 4, 5 };
+        int expected = 10;
+        int actual = ArrayProcessor.SumExceptMax(array);
+        Assert.Equal(expected, actual);
+    }
+}

@@ -1,0 +1,87 @@
+ЭКЗАМЕНАЦИОННЫЙ БИЛЕТ № 3
+№1: Основные инструменты среды для создания, исполнения и управления информационной системой.
+Основные инструменты для создания, исполнения и управления информационной системой включают текстовые редакторы, электронные таблицы, программы для создания презентаций, программы для управления проектами и системы управления базами данных.
+№2: Методология тестирования сложных систем. Понятие сложной системы.
+	Методология тестирования сложных систем включает модульное тестирование отдельных компонентов, интеграционное тестирование для проверки совместной работы модулей, а также тестирование на основе таблиц принятия решений для систем со сложной логикой. Сложная система — это система с множеством взаимодействующих составляющих, приобретающая новые свойства, не сводимые к свойствам подсистемного уровня.
+Практическое задание: Cоздать приложение графический калькулятор на языке C# с помощью Windows Forms.
+using System;
+using System.Windows.Forms;
+
+public class CalculatorForm : Form
+{
+    private TextBox display;
+    private Button[] buttons;
+    private string input = string.Empty;
+    private string operand1 = string.Empty;
+    private string operand2 = string.Empty;
+    private char operation;
+    private double result = 0.0;
+
+    public CalculatorForm()
+    {
+        display = new TextBox { Dock = DockStyle.Top, ReadOnly = true };
+        buttons = new Button[16];
+        var buttonLabels = new[] { "7", "8", "9", "/", "4", "5", "6", "*", "1", "2", "3", "-", "0", ".", "=", "+" };
+        for (int i = 0; i < buttons.Length; i++)
+        {
+            buttons[i] = new Button { Text = buttonLabels[i], Dock = DockStyle.Fill };
+            buttons[i].Click += Button_Click;
+        }
+
+        var grid = new TableLayoutPanel { RowCount = 4, ColumnCount = 4, Dock = DockStyle.Fill };
+        for (int i = 0; i < buttons.Length; i++)
+        {
+            grid.Controls.Add(buttons[i], i % 4, i / 4);
+        }
+
+        this.Controls.Add(grid);
+        this.Controls.Add(display);
+    }
+
+    private void Button_Click(object sender, EventArgs e)
+    {
+        var button = (Button)sender;
+        switch (button.Text)
+        {
+            case "=":
+                operand2 = input;
+                input = string.Empty;
+                Calculate();
+                break;
+            case "+":
+            case "-":
+            case "*":
+            case "/":
+                operand1 = input;
+                operation = button.Text[0];
+                input = string.Empty;
+                break;
+            default:
+                input += button.Text;
+                display.Text = input;
+                break;
+        }
+    }
+
+    private void Calculate()
+    {
+        double num1 = double.Parse(operand1);
+        double num2 = double.Parse(operand2);
+        switch (operation)
+        {
+            case '+': result = num1 + num2; break;
+            case '-': result = num1 - num2; break;
+            case '*': result = num1 * num2; break;
+            case '/': result = num1 / num2; break;
+        }
+        display.Text = result.ToString();
+    }
+
+    [STAThread]
+    static void Main()
+    {
+        Application.EnableVisualStyles();
+        Application.SetCompatibleTextRenderingDefault(false);
+        Application.Run(new CalculatorForm());
+    }
+}

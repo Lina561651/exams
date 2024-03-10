@@ -1,0 +1,79 @@
+ЭКЗАМЕНАЦИОННЫЙ БИЛЕТ № 7
+Вопрос №1: Диаграммы: вариантов использования, последовательности, кооперации.
+Диаграммы вариантов использования показывают, как пользователи взаимодействуют с системой. Диаграммы последовательности отображают порядок взаимодействия объектов во времени. Диаграммы кооперации специфицируют структурные аспекты взаимодействия объектов.
+Вопрос №2: Характеристики программного продукта включают функциональность, надежность, удобство использования, эффективность, обслуживаемость и переносимость. Этапы решения задач: постановка задачи, разработка алгоритма, кодирование, тестирование и отладка. Алгоритм — это последовательность действий для решения задачи, имеющая свойства: конечность, определенность, результативность и эффективность.
+Практическое задание: Cоздать приложение текстовый редактор, применяя технологию разработки многооконного приложения на языке C# с помощью Windows Forms.
+namespace test
+{
+    public partial class Form1 : Form
+    {
+        private RichTextBox richTextBox;
+        private MenuStrip menuStrip;
+        private ToolStripMenuItem fileMenu;
+        private ToolStripMenuItem newWindowMenuItem;
+        private ToolStripMenuItem openMenuItem;
+        private ToolStripMenuItem saveMenuItem;
+        private ToolStripMenuItem exitMenuItem;
+        public Form1()
+        {
+            richTextBox = new RichTextBox { Dock = DockStyle.Fill };
+            menuStrip = new MenuStrip();
+            fileMenu = new ToolStripMenuItem("Файл");
+            newWindowMenuItem = new ToolStripMenuItem("Новое окно", null, NewWindow);
+            openMenuItem = new ToolStripMenuItem("Открыть", null, OpenFile);
+            saveMenuItem = new ToolStripMenuItem("Сохранить", null, SaveFile);
+            exitMenuItem = new ToolStripMenuItem("Выход", null, ExitApplication);
+
+            fileMenu.DropDownItems.Add(newWindowMenuItem);
+            fileMenu.DropDownItems.Add(openMenuItem);
+            fileMenu.DropDownItems.Add(saveMenuItem);
+            fileMenu.DropDownItems.Add(exitMenuItem);
+            menuStrip.Items.Add(fileMenu);
+
+            Controls.Add(richTextBox);
+            Controls.Add(menuStrip);
+            MainMenuStrip = menuStrip;
+        }
+        private void NewWindow(object sender, EventArgs e)
+        {
+            var newForm = new Form1();
+            newForm.Show();
+        }
+
+        private void OpenFile(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                richTextBox.LoadFile(openFileDialog.FileName, RichTextBoxStreamType.PlainText);
+            }
+        }
+
+        private void SaveFile(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                richTextBox.SaveFile(saveFileDialog.FileName, RichTextBoxStreamType.PlainText);
+            }
+        }
+
+        private void ExitApplication(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        [STAThread]
+        static void Main()
+        {
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new Form1());
+        }
+    }
+}

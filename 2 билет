@@ -1,0 +1,48 @@
+ЭКЗАМЕНАЦИОННЫЙ БИЛЕТ № 2
+№1: Определение уровня доступа в системе контроля версий информационной системы.
+Уровень доступа в системе контроля версий определяет, кто и как может взаимодействовать с версиями информационной системы. Это включает права на чтение, запись, изменение и удаление данных или версий в репозитории
+№2: Каскадная и спиральная модель: сходства и различия.
+Каскадная и спиральная модели разработки ПО имеют общие черты, такие как последовательный процесс разработки, но отличаются подходами к управлению рисками и гибкости. Каскадная модель строга и последовательна, тогда как спиральная более гибка и включает итеративные циклы с оценкой рисков на каждом этапе
+Практическое задание: Разработайте код программного модуля, который генерирует массив вещественных чисел в диапазоне от –10 до определяющий все минимальные положительные элементы. Проведите тестирование модуля NUnix тестом.
+Код:
+using System;
+using System.Linq;
+
+class Program
+{
+public static double MinPositive(double[] array)
+{
+    return array.Where(x => x > 0).DefaultIfEmpty().Min();
+}
+    static void Main()
+    {
+        Random rand = new Random();
+        double[] array = Enumerable.Repeat(0, 10).Select(i => rand.NextDouble() * 20 - 10).ToArray();
+        double minPositive = array.Where(x => x > 0).DefaultIfEmpty().Min();
+        
+        Console.WriteLine("Массив вещественных чисел:");
+        foreach (var num in array)
+        {
+            Console.WriteLine(num);
+        }
+        Console.WriteLine("\nМинимальный положительный элемент: " + (minPositive == double.PositiveInfinity ? "Не найден" : minPositive.ToString()));
+    }
+}
+
+Тест:
+using NUnit.Framework;
+using System.Linq;
+
+[TestFixture]
+public class Tests
+{
+    [Test]
+    public void TestMinPositive()
+    {
+        Random rand = new Random();
+        double[] array = Enumerable.Repeat(0, 10).Select(i => rand.NextDouble() * 20 - 10).ToArray();
+        double expected = array.Where(x => x > 0).DefaultIfEmpty().Min();
+        double actual = Program.MinPositive(array);
+        Assert.AreEqual(expected, actual, "Тест не пройден - минимальные положительные элементы не совпадают.");
+    }
+}

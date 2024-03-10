@@ -1,0 +1,38 @@
+ЭКЗАМЕНАЦИОННЫЙ БИЛЕТ № 15
+№1: Выбор технических средств для проекта информационной системы включает анализ требований проекта, оценку производительности и совместимости оборудования, а также учет стоимости и поддержки.
+№2: Подходы к формированию тестовых наборов включают структурный и функциональный. Структурный подход основан на анализе внутренней структуры системы, а функциональный - на требованиях к функциональности. Примеры тестовых наборов могут включать тесты логина, добавления товаров в корзину, оформления заказа и выхода из системы.
+Практическое задание:
+namespace ekz15 {
+    public class Program {
+        public static string proverka(int n) {
+            string pr = "";
+            if (n > 0 && n < 999) {
+                Console.WriteLine((n % 10) + " "+  (n / 10 % 10) + " " + (n / 100));
+                pr = Convert.ToString((n % 10) * (n / 10 % 10) * (n / 100));
+            }
+            else {
+                pr = "Число введено неверно";
+            }
+                return pr;
+            }
+        public static void Main() {
+            Console.WriteLine("Введите трёхзначное число для нахождения произведения его чисел: ");
+            int number = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine(proverka(number));
+            Console.ReadKey();
+        }
+    }
+}
+Тест: 
+using Xunit;
+namespace test {
+    public class UnitTest1 {
+        [Fact]
+        public void Test1() {
+            string result = ekz15.Program.proverka(567);
+            string expected = "210";
+            Assert.Equal(expected, result);
+        }
+    }
+}
+ 

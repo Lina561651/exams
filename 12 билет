@@ -1,0 +1,52 @@
+ЭКЗАМЕНАЦИОННЫЙ БИЛЕТ № 12
+№1: Интегрированные среды разработки для создания независимых программ: назначение, сфера применения.
+Интегрированная среда разработки (IDE) – это программное приложение, которое помогает программистам эффективно разрабатывать программный код. Используется в сферах, где требуется автоматизация, таких как: системы каких-либо предприятий, игровая индустрия и т.д.
+№2: Определение, цель и этапы тестирования производительности. Критерии для измеряемых метрик.
+Этапы: анализ системы и подбор требований, подготовка стратегии, настройка генератора нагрузки, проведение мониторинга серверов и генератора нагрузки, подготовка тестовых данных, разработка нагрузочных скриптов, предварительные запуски тестов, проведение тестирования, анализ результатов и подготовка отчёта.
+Практическое задание: 
+        public static void Main() {
+            try {
+                Console.WriteLine("Введите значение 1 стороны - ");
+                double a = Convert.ToDouble(Console.ReadLine());
+                Console.WriteLine("Введите значение 2 стороны - ");
+                double b = Convert.ToDouble(Console.ReadLine());
+                Console.WriteLine("Введите значение 3 стороны - ");
+                double c = Convert.ToDouble(Console.ReadLine());
+                Console.WriteLine(Treug(a, b, c));
+            }
+            catch {
+                Console.WriteLine("Ошибка! Неверные значения");
+            }}
+            public static string Treug(double a, double b, double c) {
+                string result = "Ошибка введённых значений";
+                if (a == b && a == c) {
+                        result = "Треугольник равносторонний";
+                }
+                    else {
+                        if (a == c || b == c || a == b) {
+                            result = "Треугольник равнобедренный";
+                        }
+                        double pr_a = Math.Sqrt(b * b + c * c);
+                        double pr_b = Math.Sqrt(a * a + c * c);
+                        double pr_c = Math.Sqrt(b * b + a * a);
+                        if (a == pr_a || b == pr_b || c == pr_c) {
+                            result = "Треугольник прямоугольный";
+                        }
+                        if (a != b && a != c && b != c) {
+                            result = "Треугольник разносторонний";
+                        }}
+                return result;
+                Console.ReadKey();
+            }}}
+Тест:
+using Xunit;
+namespace test {
+    public class UnitTest1 {
+        [Fact]
+        public void Test1() {
+            string result = ekz12.Program.Treug(2, 3, 2);
+            string expected = "Треугольник равнобедренный";
+            Assert.Equal(expected, result);
+        }
+    }
+}

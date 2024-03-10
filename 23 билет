@@ -1,0 +1,54 @@
+ЭКЗАМЕНАЦИОННЫЙ БИЛЕТ № 23
+№1: Формирование репозитория проекта информационной системы включает определение структуры хранения данных, установление правил именования и версионирования, а также настройку системы контроля версий для управления изменениями и совместной работы.
+№2: Спиральная модель жизненного цикла ПО — это итеративный подход, который сочетает элементы как последовательной, так и прототипной моделей. Особенности включают акцент на управлении рисками и гибкость в планировании. Проблемы могут возникать из-за сложности управления проектом, высоких затрат и необходимости специализированных знаний для оценки рисков
+Практическое задание: 
+Код: 
+class QuickSortExample
+{
+    static void Main()
+    {
+        int[] array = { 3, 6, 8, 10, 1, 2, 1 };
+        QuickSort(array, 0, array.Length - 1);
+        Console.WriteLine(string.Join(", ", array));
+    }
+    static void QuickSort(int[] array, int left, int right)
+    {
+        if (left < right)
+        {
+            int pivot = Partition(array, left, right);
+            QuickSort(array, left, pivot - 1);
+            QuickSort(array, pivot + 1, right);
+        }}
+    static int Partition(int[] array, int left, int right)
+    {
+        int pivot = array[right];
+        int i = (left - 1);
+        for (int j = left; j < right; j++)
+        {
+            if (array[j] < pivot)
+            {
+                i++;
+                Swap(ref array[i], ref array[j]);
+            } }
+        Swap(ref array[i + 1], ref array[right]);
+        return i + 1;   }
+    static void Swap(ref int a, ref int b)
+    {
+        int temp = a;  a = b; b = temp;
+    }}
+Тест: 
+namespace QuickSortTests
+{
+    [TestClass]
+    public class QuickSortExampleTests
+    {
+        [TestMethod]
+        public void TestQuickSort_SortedArray()
+        {
+            int[] array = { 1, 2, 3, 4, 5 };
+            int[] expected = { 1, 2, 3, 4, 5 };
+
+            QuickSortExample.QuickSort(array, 0, array.Length - 1);
+            CollectionAssert.AreEqual(expected, array);
+        } }}
+ 

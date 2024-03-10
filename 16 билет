@@ -1,0 +1,79 @@
+КЗАМЕНАЦИОННЫЙ БИЛЕТ № 16
+№1: Средства обработки информации: определение, виды.
+№2: Функциональное тестирование. Понятие, основные функции, условия ошибки, режим выполнения. Примеры функционального тестирования. 
+Практическое задание: 
+using System.Drawing;
+using System.Windows.Forms;
+namespace ekz16 {
+    public partial class Form1 : Form {
+        Bitmap bit;
+        Graphics v;
+        bool Draw = false;
+        public Form1() {
+            InitializeComponent();
+            bit = new Bitmap(pictureBox1.Width, pictureBox1.Height);
+            pictureBox1.Image = bit;
+            v = Graphics.FromImage(bit);
+            v = pictureBox1.CreateGraphics();
+        }
+        private void pictureBox1_MouseDown(object sender, MouseEventArgs e) {
+            Draw = true;
+        }
+        private void pictureBox1_MouseUp(object sender, MouseEventArgs e) {
+            Draw = false;
+        }
+        private void pictureBox1_MouseMove(object sender, MouseEventArgs e) {
+            try {
+                Pen p1pen = new Pen(Color.FromArgb(Convert.ToInt32(r_box.Text), Convert.ToInt32(g_box.Text), Convert.ToInt32(b_box.Text)), 4.5f);
+                if (Draw == true) {
+                    float x = e.X;
+                    float y = e.Y;
+                    v.DrawLine(p1pen, x, y, x + 3, y + 3);
+                    Graphics.FromImage(pictureBox1.Image).DrawLine(p1pen, x, y, x + 3, y + 3);
+                }
+            }
+            catch {
+                MessageBox.Show("Данные даны не верно", "Ошибка");
+            }
+        }
+        private void Save_button_Click(object sender, EventArgs e) {
+            SaveFileDialog save1 = new SaveFileDialog();
+            save1.FileName = "Новый_рисунок";
+            save1.Title = "Сохранить картинку как...";
+            save1.OverwritePrompt = true;
+            save1.CheckPathExists = true;
+            save1.Filter = "Image Files(*.BMP)|*.BMP|Image Files(*.JPG)|*.JPG|Image Files(*.GIF)|*.GIF|Image Files(*.PNG)|*.PNG|All files (*.*)|*.*";
+            save1.ShowHelp = true;
+            if (save1.ShowDialog() == DialogResult.OK) {
+                try {
+                    bit.Save(save1.FileName);
+                }
+                catch {
+                    MessageBox.Show("Невозможно сохранить файл.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+        private void open_button_Click(object sender, EventArgs e) {
+            Image ab;
+            OpenFileDialog open1 = new OpenFileDialog();
+            open1.Title = "Открыть изображение...";
+            open1.Filter = "Image Files(*.PNG)|*.PNG";
+            if (open1.ShowDialog() == DialogResult.OK) {
+                try {
+                    ab = new Bitmap(open1.FileName);
+                    this.pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+                    pictureBox1.Image = ab;
+                    pictureBox1.Invalidate();
+                }
+                catch {
+                    MessageBox.Show("Невозможно открыть файл.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+        private void create_button_Click(object sender, EventArgs e) {
+            Form1 ChildForm = new Form1();
+            ChildForm.Show();
+            ChildForm.Text = "Новый Рисунок ";
+        }
+    }
+}

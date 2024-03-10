@@ -1,0 +1,38 @@
+ЭКЗАМЕНАЦИОННЫЙ БИЛЕТ № 10
+№1: Построение архитектуры проекта информационной системы включает определение структуры, компонентов, их взаимосвязей и принципов организации системы для достижения бизнес-целей1234.
+№2: Интеграционное тестирование - это проверка взаимодействия между модулями или компонентами программы, цель - выявление ошибок в интерфейсах и в потоке данных. Методы включают инкрементальное тестирование, тестирование “большого взрыва”, использование заглушек и драйверов.
+Практическое задание: 
+Код: 
+public class BubbleSort
+{
+    public static void SortArray(int[] array)
+    {
+        for (int i = 0; i < array.Length - 1; i++)
+        {
+            for (int j = 0; j < array.Length - i - 1; j++)
+            {
+                if (array[j] > array[j + 1])
+                {
+                    int temp = array[j];
+                    array[j] = array[j + 1];
+                    array[j + 1] = temp;
+                }
+            }
+        }
+    }
+}
+Тест:
+using NUnit.Framework;
+[TestFixture]
+public class BubbleSortTests
+{
+    [Test]
+    public void SortArray_WithUnsortedArray_ReturnsSortedArray()
+    {
+        int[] unsortedArray = { 5, 1, 4, 2, 8 };
+        int[] expectedArray = { 1, 2, 4, 5, 8 };
+        BubbleSort.SortArray(unsortedArray);
+        Assert.AreEqual(expectedArray, unsortedArray);
+    }
+}
+ 

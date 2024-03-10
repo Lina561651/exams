@@ -1,0 +1,87 @@
+ЭКЗАМЕНАЦИОННЫЙ БИЛЕТ № 13
+№1: Спецификация настроек типовой информационной системы включает установку глобальных параметров системы, определение структуры основных данных, перечень реализуемых функций и процессов, описание интерфейсов и отчетов, настройку авторизации доступа и системы архивирования.
+№2: Экспертный подход к юзабилити-тестированию основывается на оценке продукта экспертами по интерфейсам. Критерии включают привлекательность, удобство, доступность информации и интуитивность использования. Преимущества: глубокий анализ, выявление неочевидных проблем, экономия времени и ресурсов. Недостатки: возможная субъективность оценок, ограниченность точки зрения экспертов, высокая стоимость при привлечении ведущих специалистов.
+Практическое задание: Разработайте код программного модуля, который моделирует работу стека. Проведите тестирование модуля xUnix тестом.
+namespace ekz13 {
+    public class Program {
+        public static void Main() {
+            var primer = new List<string> { "Tom", "Sam", "Bob" };
+            Stack<string> people = new Stack<string>(primer);
+            try {
+                Console.WriteLine("1 - Clear, 2 - Contains, 3 - Push, 4 - Pop, 5 - Peek");
+                double a = Convert.ToDouble(Console.ReadLine());
+                string name = "";
+                switch(a) {
+                    case 1:
+                        Console.WriteLine(Clear(people));
+                        break;
+                    case 2:
+                        Console.WriteLine("Введите элемент, который вы хотите проверить на наличие в стеке:  ");
+                        name = Console.ReadLine();
+                        Console.WriteLine(Contains(people, name));
+                        break;
+                    case 3:
+                        Console.WriteLine("Введите элемент для добавления: ");
+                        name = Console.ReadLine();
+                        Console.WriteLine(Push(people, name));
+                        break;
+                    case 4:
+                        Console.WriteLine(Pop(people));
+                        break;
+                    case 5:
+                        Console.WriteLine(Peek(people));
+                        break;
+                }
+            }
+            catch {
+                Console.WriteLine("Ошибка! Неверные значения");
+            }
+        }
+        public static string Clear(Stack<string> p) {
+            p.Clear();
+            string result = "Произошла очистка стека";
+            return result;
+        }
+        public static string Contains(Stack<string> p, string n) {
+            bool res = p.Contains(n);
+            string result = "";
+            if (res == true)
+            { result = "Элемент найден"; }
+            else
+            { result = "Элемент не найден"; }
+            return result;
+        }
+        public static string Push(Stack<string> p, string n) {
+            p.Push(n);
+            string result = "Элемент добавлен в верхушку стека";
+            return result;
+        }
+        public static string Pop(Stack<string> p) {
+            string r = p.Pop();
+            string result = "Первый элемент извлечён "+r;
+            return result;
+        }
+        public static string Peek(Stack<string> p) {
+            string r = p.Peek();
+            string result = "Первый элемент - "+r;
+            return result;
+        }
+    }
+}
+Тест:
+using Xunit;
+using System.Collections.Generic;
+namespace test {
+    public class UnitTest1 {
+        [Fact]
+        public void Test1() {
+            var primer = new List<string> { "Alena", "NeAlena", "Kto" };
+            Stack<string> people = new Stack<string>(primer);
+            string result = ekz13.Program.Clear(people);
+            string expected = "Произошла очистка стека";
+            Assert.Equal(expected, result);
+
+        }
+    }
+}
+ 
